@@ -1,5 +1,5 @@
 
-const ConsultationTable=({consultationList})=>{
+const AllPrescriptionTable=({prescriptionList})=>{
     return<>
     <div className="overflow-x-auto py-4">
         <table className="table">
@@ -16,7 +16,7 @@ const ConsultationTable=({consultationList})=>{
             </thead>
             <tbody>
                 {
-                    consultationList?.map((appoinment,index)=>{
+                    prescriptionList?.map((appoinment,index)=>{
                         return (
                             <tr key={index}>
                                 <th>{index+1}</th>
@@ -25,7 +25,7 @@ const ConsultationTable=({consultationList})=>{
                                 <td>{appoinment?.patient_type}</td>
                                 <td>{appoinment?.chief_complaint}</td>
                                 <td className="flex items-center gap-x-3">
-                                    <a href={`/appoinment/${appoinment?._id}/prescription-create`} className="py-1 px-5 rounded-md bg-orange-500 text-white">Rx</a>
+                                    <a href={`/all-prescription/${appoinment?._id}/view`} className="py-1 px-5 rounded-md bg-orange-500 text-white">View</a>
                                 </td>
                             </tr>
                         )
@@ -37,4 +37,4 @@ const ConsultationTable=({consultationList})=>{
     </div>
     </>
 }
-export default ConsultationTable;
+export default AllPrescriptionTable;

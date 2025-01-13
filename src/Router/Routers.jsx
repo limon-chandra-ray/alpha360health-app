@@ -4,8 +4,10 @@ import Home from "../component/page/Home/Home";
 import Appointment from "../component/page/Appoinment/Appoinment";
 import AppointmentCreate from "../component/page/Appoinment/Appoinment-Create";
 import Consultent from "../component/page/Consultation/Consultation";
-import AllPrescription from "../component/page/All-Prescription/All-Presription";
+import AllPrescription from "../component/page/All-Prescription/All-Prescription";
 import CreatePrescription from "../component/page/Prescription/CreatePrescription";
+import { BaseUrl } from "../Constant/ApiDoamin";
+import Prescription from "../component/page/Prescription/Prescription";
 
 const router = createBrowserRouter(
     [
@@ -19,7 +21,8 @@ const router = createBrowserRouter(
                 },
                 {
                     path:"/appoinment",
-                    element:<Appointment/>
+                    element:<Appointment/>,
+                    loader:()=>fetch(`${BaseUrl}appoinments`)
                 },
                 {
                     path:"/appoinment-create",
@@ -36,6 +39,10 @@ const router = createBrowserRouter(
                 {
                     path:"/appoinment/:Id/prescription-create",
                     element:<CreatePrescription/>
+                },
+                {
+                    path:"/all-prescription/:Id/view",
+                    element:<Prescription/>
                 }
             ]
         }

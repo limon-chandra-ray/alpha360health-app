@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PrescriptionLogo from "../../../assets/prescription.png"
 import { useState } from "react";
 import Complaint from "./Complaint";
@@ -9,7 +9,11 @@ import PatientFollowUpInstruction from "./FollowUpInstruction";
 import AddMedicine from "./AddMedicine";
 import EditMedicine from "./EditMedicine";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
+import { BaseUrl } from "../../../Constant/ApiDoamin";
+import toast from "react-hot-toast";
 const CreatePrescription=()=>{
+    const navigate = useNavigate()
     const {Id} = useParams()
     const [medicineList,setMedicineList] = useState([])
     const [complaints,setComplaint] = useState([])
@@ -21,8 +25,9 @@ const CreatePrescription=()=>{
         console.log(index)
         setMedicineList((prev)=>prev.filter((pprev,mindex)=> mindex !== index))
     }
-    const handlePrescriptionSave=()=>{
+    const handlePrescriptionSave= async()=>{
         const form_save_data = {
+            "appoinment_status":"Completed",
             "complaint":complaints,
             "observation":observations,
             "diagnosi":diagnosis,
@@ -30,7 +35,15 @@ const CreatePrescription=()=>{
             "instruction":followupinstructions,
             "medicins":medicineList
         }
-        console.log(form_save_data)
+        const response =await axios.patch(`${BaseUrl}appoinments/${Id}`,form_save_data)
+        const responseData = response.data;
+        if(responseData?.result){
+            toast.success(responseData?.message)
+            navigate('/consultation')
+        }else{
+            toast.success(responseData?.message)
+        }
+
     }
     return <>
         <div>

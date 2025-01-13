@@ -1,7 +1,11 @@
+import { useEffect, useState } from "react";
 import AppoinmentDelete from "./AppoinmentDelete";
 import AppoinmentEdit from "./AppoinmentEdit";
+import { useLoaderData } from "react-router-dom";
 
 const AppoinmentTable=()=>{
+    const appoinments = useLoaderData();
+    console.log(appoinments)
     return<>
     <div className="overflow-x-auto py-4">
         <table className="table">
@@ -20,19 +24,26 @@ const AppoinmentTable=()=>{
             </thead>
             <tbody>
             {/* row 1 */}
-            <tr>
-                <th>1</th>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
-                <td>Blue</td>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
-                <td>Quality Control Specialist</td>
-                <td className="flex items-center gap-x-3">
-                    <AppoinmentEdit/>
-                    <AppoinmentDelete/>
-                </td>
-            </tr>
+            {
+                appoinments?.map((appoinment,index)=>{
+                    return (
+                        <tr key={index}>
+                            <th>{index+1}</th>
+                            <td>{appoinment?.patient_name}</td>
+                            <td>{appoinment?.patientId}</td>
+                            <td>{appoinment?.phone_number}</td>
+                            <td>{appoinment?.appoinment_status}</td>
+                            <td>{appoinment?.payment_status}</td>
+                            <td>{appoinment?.chief_complaint}</td>
+                            <td className="flex items-center gap-x-3">
+                                <AppoinmentEdit/>
+                                <AppoinmentDelete/>
+                            </td>
+                        </tr>
+                    )
+                })
+            }
+            
             </tbody>
         </table>
     </div>

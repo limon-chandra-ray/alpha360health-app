@@ -45,8 +45,8 @@ const AppointmentCreate=({SetPatient})=>{
                 "chief_complaint":patientForm?.chief_complaint,
                 "payment_status":patientForm?.payment_status,
                 "service_charge":patientForm?.service_charge,
-                "appoinment_status":"Primary",
-                "patinet_type":"Pending",
+                "appoinment_status":"Pending",
+                "patient_type":"Primary",
             })
             SetPatientForm((prev)=>({
                 ...prev,
