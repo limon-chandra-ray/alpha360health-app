@@ -22,7 +22,6 @@ const CreatePrescription=()=>{
     const [advices,setAdvice] = useState([])
     const [followupinstructions,setFollowUpInstruction] = useState([])
     const handleRemoveM=(index)=>{
-        console.log(index)
         setMedicineList((prev)=>prev.filter((pprev,mindex)=> mindex !== index))
     }
     const handlePrescriptionSave= async()=>{

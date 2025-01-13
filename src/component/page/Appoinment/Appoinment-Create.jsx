@@ -115,6 +115,12 @@ const AppointmentCreate=({SetPatient})=>{
                 <label htmlFor="service_charge" className="col-span-4">Service Charge:</label>
                 <select name="service_charge" value={patientForm?.service_charge} required onChange={handleChange} className="col-span-8">
                     <option> select charge</option>
+                    <option value={'10 tk'}> 10 tk</option>
+                    <option value={'25 tk'}> 25 tk</option>
+                    <option value={'50 tk'}> 50 tk</option>
+                    <option value={'100 tk'}> 100 tk</option>
+                    <option value={'150 tk'}> 150 tk</option>
+                    <option value={'200 tk'}> 200 tk</option>
                     <option value={'250 tk'}> 250 tk</option>
                     <option value={'500 tk'}>500 tk</option>
                     <option value={'Not applicable'}>Not applicable</option>

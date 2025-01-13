@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { DrugData } from "../../../Constant/DrugData";
 
 const AddMedicine=({setMedicineList})=>{
     const [medicineForm,setMedicineForm] = useState({
@@ -14,13 +15,7 @@ const AddMedicine=({setMedicineList})=>{
         "quantity":"",
         "comment":""
     })
-    const dragList = [
-        {'id':1,"name":"drag 1","generic":"generic 1"},
-        {'id':2,"name":"drag 2","generic":"generic 1"},
-        {'id':3,"name":"drag 3","generic":"generic 3"},
-        {'id':4,"name":"drag 4","generic":"generic 4"},
-        {'id':5,"name":"drag 5","generic":"generic 5"}
-    ]
+
     const [searchDragList,setSearchDragList] = useState([])
     const [selectText,setSelectText] = useState('')
     const [searchText,setSearchText] = useState('')
@@ -71,8 +66,8 @@ const AddMedicine=({setMedicineList})=>{
 
     useEffect(()=>{
         console.log(searchText)
-        const search_list= dragList.filter((s_text)=>{
-            return s_text.name.includes(searchText) || s_text.generic.includes(searchText)
+        const search_list= DrugData.filter((s_text)=>{
+            return s_text.brand_name.includes(searchText) || s_text.generic_name.includes(searchText)
         })
         setSearchDragList(search_list)
     },[searchText])
@@ -93,7 +88,7 @@ const AddMedicine=({setMedicineList})=>{
                     <div className="grid grid-cols-1 gap-y-2">
                         <div className="grid grid-cols-1 gap-y-2">
                             <div className="grid grid-cols-1">
-                                <label htmlFor="drag_name">Drag Name or Generic Name</label>
+                                <label htmlFor="drag_name">Brand Name or Generic Name</label>
                                 <input onChange={handleSearch} value={selectText} type="text" name="drag_name" placeholder="Drag name or generic name"/>
                             </div>
                             {
@@ -101,7 +96,7 @@ const AddMedicine=({setMedicineList})=>{
                                 <div className="grid grid-cols-1 border border-black pb-2">
                                     {
                                         searchDragList?.map((drag)=><div key={drag.id}  className="py-2 pl-5 border-b border-black cursor-pointer" 
-                                        onClick={()=>handleSelect(`${drag?.name}`)}>{`${drag?.name} ${drag?.generic}`}</div>)
+                                        onClick={()=>handleSelect(`${drag?.brand_name}`)}>{`${drag?.brand_name} ${drag?.generic_name}`}</div>)
                                     }
                                     
                                 
@@ -121,11 +116,11 @@ const AddMedicine=({setMedicineList})=>{
                                 </select>
                             </div>
                             <div className="grid grid-cols-1">
-                                <label htmlFor="strength">Strength</label>
+                                <label htmlFor="strength" className="text-cyan-400">Strength</label>
                                 <input type="text" value={medicineForm?.strength} name="strength" onChange={handleChange} placeholder="strength"/>
                             </div>
                             <div className="grid grid-cols-1">
-                                <label htmlFor="unit">Unit's</label>
+                                <label htmlFor="unit" className="text-cyan-400">Unit's</label>
                                 <select name="unit" value={medicineForm?.unit} onChange={handleChange}>
                                     <option selected>select unit's</option>
                                     <option value="mg">mg</option>
@@ -147,7 +142,7 @@ const AddMedicine=({setMedicineList})=>{
                                 </select>
                             </div>
                             <div className="col-span-8 grid grid-cols-1">
-                                <label htmlFor="direction">Direction</label>
+                                <label htmlFor="direction">Direction of administration</label>
                                 <select name="direction" value={medicineForm?.direction} onChange={handleChange}>
                                     <option selected>select direction</option>
                                     <option value="mg">mg</option>
