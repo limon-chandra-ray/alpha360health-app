@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { DrugData } from "../../../Constant/DrugData";
+import { DirectionAdministration, DosageForm, DoseFrequency, DosefrequencyDurationUnit, DoseUnit, RouteAdministration } from "../../../Constant/DrugData";
+import { BaseUrl } from "../../../Constant/ApiDoamin";
 
 const AddMedicine=({setMedicineList})=>{
     const [medicineForm,setMedicineForm] = useState({
@@ -65,11 +66,14 @@ const AddMedicine=({setMedicineList})=>{
     }
 
     useEffect(()=>{
-        console.log(searchText)
-        const search_list= DrugData.filter((s_text)=>{
-            return s_text.brand_name.includes(searchText) || s_text.generic_name.includes(searchText)
-        })
-        setSearchDragList(search_list)
+        const fetchDrug= async()=>{
+            const response =await fetch(
+                `${BaseUrl}search-drugs?search=${searchText}`
+            )
+            const responseData = await response.json() 
+            setSearchDragList(responseData)
+        }
+        fetchDrug()
     },[searchText])
 
     return <>
@@ -86,17 +90,17 @@ const AddMedicine=({setMedicineList})=>{
                 <div className="text-center text-[20px] font-bold">Medicine Add</div>
                 <form onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 gap-y-2">
-                        <div className="grid grid-cols-1 gap-y-2">
+                        <div className="grid grid-cols-1 gap-y-2 relative">
                             <div className="grid grid-cols-1">
                                 <label htmlFor="drag_name">Brand Name or Generic Name</label>
                                 <input onChange={handleSearch} value={selectText} type="text" name="drag_name" placeholder="Drag name or generic name"/>
                             </div>
                             {
-                                searchText !== '' && selectText === searchText ?
-                                <div className="grid grid-cols-1 border border-black pb-2">
+                                searchText !== '' && selectText === searchText && searchDragList?.length > 0 ?
+                                <div className="flex flex-col border border-black pb-2 absolute max-h-[350px] bg-blue-200 top-[66px] left-0 right-0 overflow-y-scroll">
                                     {
-                                        searchDragList?.map((drag)=><div key={drag.id}  className="py-2 pl-5 border-b border-black cursor-pointer" 
-                                        onClick={()=>handleSelect(`${drag?.brand_name}`)}>{`${drag?.brand_name} ${drag?.generic_name}`}</div>)
+                                        searchDragList?.map((durg)=><div key={durg.id}  className="py-2 pl-5 border-b border-blue-600 text-slate-800 cursor-pointer" 
+                                        onClick={()=>handleSelect(`${durg?.brand_name} ( ${durg?.generic_name} )`)}>{`${durg?.brand_name} ( ${durg?.generic_name} )`}</div>)
                                     }
                                     
                                 
@@ -108,10 +112,9 @@ const AddMedicine=({setMedicineList})=>{
                                 <label htmlFor="dosage_form">Dosage form</label>
                                 <select name="dosage_form" value={medicineForm?.dosage_form} onChange={handleChange}>
                                     <option selected>select form</option>
-                                    <option value="Capsule">Capsule</option>
-                                    <option value="Suspension">Suspension</option>
-                                    <option value="Syrup">Syrup</option>
-                                    <option value="Tablet">Tablet</option>
+                                    {
+                                        DosageForm?.map((Mdata,index)=><option key={index} value={Mdata}>{Mdata}</option>)
+                                    }
 
                                 </select>
                             </div>
@@ -123,9 +126,9 @@ const AddMedicine=({setMedicineList})=>{
                                 <label htmlFor="unit" className="text-cyan-400">Unit's</label>
                                 <select name="unit" value={medicineForm?.unit} onChange={handleChange}>
                                     <option selected>select unit's</option>
-                                    <option value="mg">mg</option>
-                                    <option value="ml">ml</option>
-                                    <option value="gm">gm</option>
+                                    {
+                                        DoseUnit?.map((Mdata,index)=><option key={index} value={Mdata}>{Mdata}</option>)
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -134,10 +137,9 @@ const AddMedicine=({setMedicineList})=>{
                                 <label htmlFor="route">Route</label>
                                 <select name="route" value={medicineForm?.route} onChange={handleChange}>
                                     <option selected>select route</option>
-                                    <option value="Capsule">Capsule</option>
-                                    <option value="Suspension">Suspension</option>
-                                    <option value="Syrup">Syrup</option>
-                                    <option value="Tablet">Tablet</option>
+                                    {
+                                        RouteAdministration?.map((Mdata,index)=><option key={index} value={Mdata}>{Mdata}</option>)
+                                    }
 
                                 </select>
                             </div>
@@ -145,9 +147,9 @@ const AddMedicine=({setMedicineList})=>{
                                 <label htmlFor="direction">Direction of administration</label>
                                 <select name="direction" value={medicineForm?.direction} onChange={handleChange}>
                                     <option selected>select direction</option>
-                                    <option value="mg">mg</option>
-                                    <option value="ml">ml</option>
-                                    <option value="gm">gm</option>
+                                    {
+                                        DirectionAdministration?.map((Mdata,index)=><option key={index} value={Mdata}>{Mdata}</option>)
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -156,10 +158,9 @@ const AddMedicine=({setMedicineList})=>{
                                 <label htmlFor="frequency">Frequency</label>
                                 <select name="frequency" value={medicineForm?.frequency} onChange={handleChange}>
                                     <option selected>select frequency</option>
-                                    <option value="Capsule">Capsule</option>
-                                    <option value="Suspension">Suspension</option>
-                                    <option value="Syrup">Syrup</option>
-                                    <option value="Tablet">Tablet</option>
+                                    {
+                                        DoseFrequency?.map((Mdata,index)=><option key={index} value={Mdata}>{Mdata}</option>)
+                                    }
 
                                 </select>
                             </div>
@@ -171,9 +172,9 @@ const AddMedicine=({setMedicineList})=>{
                                 <label htmlFor="duration_unit">Duration Unit</label>
                                 <select name="duration_unit" value={medicineForm?.duration_unit} onChange={handleChange}>
                                     <option selected>select duration unit</option>
-                                    <option value="mg">mg</option>
-                                    <option value="ml">ml</option>
-                                    <option value="gm">gm</option>
+                                    {
+                                        DosefrequencyDurationUnit?.map((Mdata,index)=><option key={index} value={Mdata}>{Mdata}</option>)
+                                    }
                                 </select>
                             </div>
                         </div>

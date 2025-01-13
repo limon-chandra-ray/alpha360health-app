@@ -4,7 +4,7 @@ import AppoinmentEdit from "./AppoinmentEdit";
 import { useLoaderData } from "react-router-dom";
 
 const AppoinmentTable=()=>{
-    const appoinments = useLoaderData();
+    const [appoinments,setAppoinment] = useState(useLoaderData());
     console.log(appoinments)
     return<>
     <div className="overflow-x-auto py-4">
@@ -36,8 +36,8 @@ const AppoinmentTable=()=>{
                             <td>{appoinment?.payment_status}</td>
                             <td>{appoinment?.chief_complaint}</td>
                             <td className="flex items-center gap-x-3">
-                                <AppoinmentEdit/>
-                                <AppoinmentDelete/>
+                                {/* <AppoinmentEdit /> */}
+                                <AppoinmentDelete setAppoinment={setAppoinment} appoinment_id={appoinment?._id}/>
                             </td>
                         </tr>
                     )

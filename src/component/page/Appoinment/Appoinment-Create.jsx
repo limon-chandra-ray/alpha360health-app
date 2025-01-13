@@ -1,16 +1,16 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BaseUrl } from "../../../Constant/ApiDoamin";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import toast from "react-hot-toast";
 
 const AppointmentCreate=({SetPatient})=>{
     const [loader,setLoader] = useState(false)
-    const patientID = 10000001
+    const [patientId,setPatientId] = useState(0)
     const [patientForm,SetPatientForm] = useState({
         "patient_name":"",
         "phone_number":"",
-        "patient_id":"",
+        "patient_id":patientId,
         "gender":"",
         "age":"",
         "chief_complaint":"",
@@ -34,7 +34,7 @@ const AppointmentCreate=({SetPatient})=>{
             const responseData= await axios.post(`${BaseUrl}patients`,{
                 "patient_name":patientForm?.patient_name ?? "",
                 "phone_number":patientForm?.phone_number ?? "",
-                "patient_id":patientID,
+                "patient_id":patientId,
                 "gender":patientForm?.gender ?? "",
                 "age":patientForm?.age ?? "",
                 "address":patientForm?.address ?? ""
@@ -57,8 +57,10 @@ const AppointmentCreate=({SetPatient})=>{
                 "chief_complaint":"",
                 "payment_status":"",
                 "service_charge":"",
-                "address":""
+                "address":"",
+                "patient_id": parseInt(patientId)+1
             }))
+            setPatientId(parseInt(patientId)+1)
             toast.success("Create success")
         }catch (error) {
             toast.error(error.message)
@@ -68,6 +70,21 @@ const AppointmentCreate=({SetPatient})=>{
         }
 
     }
+    useEffect(()=>{
+        const fetchLastPatient=async()=>{
+            const response =await fetch(
+                `${BaseUrl}patient-id`
+            )
+            const responseData = await response.json() 
+            const id = parseInt(responseData?.patient_id)+1
+            setPatientId(id)
+            SetPatientForm((prev)=>({
+                ...prev,
+                patient_id:id
+            }))
+        }
+        fetchLastPatient()
+    },[])
     return<>
     <div>
         <div className="text-center text-[25px] font-bold text-black">Appointment Booking</div>
@@ -79,7 +96,7 @@ const AppointmentCreate=({SetPatient})=>{
             </div>
             <div className="grid grid-cols-12 items-center">
                 <label htmlFor="patient_id" className="col-span-4">Patient ID:</label>
-                <input type="text" value={patientForm?.patient_id} onChange={handleChange} className="col-span-8" name="patient_id"/>
+                <input type="text" value={patientId} className="col-span-8"/>
             </div>
             <div className="grid grid-cols-12 items-center">
                 <label htmlFor="patient_name" className="col-span-4">Patient Name:</label>

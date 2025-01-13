@@ -59,11 +59,11 @@ const Prescription=()=>{
                     <div className="col-span-5 border-r border-black">Name: {prescriptionDetails?.patient_name}</div>
                     <div className="col-span-2 border-r border-black">Gender: {prescriptionDetails?.gender}</div>
                     <div className="col-span-2 border-r border-black">Age: {prescriptionDetails?.age} years</div>
-                    <div className="col-span-3">Date: 13/01/2025</div>
+                    <div className="col-span-3">Date: {format(prescriptionDetails?.created_at? prescriptionDetails?.created_at:null,"dd/MM/yyyy")}</div>
                 </div>
                 <div className="grid grid-cols-12 border-t-0 border-l border-b border-r border-black p-[2px]">
                     <div className="col-span-3 border-r border-black">Patient ID:{prescriptionDetails?.patientId}</div>
-                    <div className="col-span-3 border-r border-black">Prescription ID:{prescriptionDetails?._id}</div>
+                    <div className="col-span-3 border-r border-black">Prescription ID:{prescriptionDetails?.prescription_id}</div>
                     <div className="col-span-3 border-r border-black">Phone: {prescriptionDetails?.phone_number}</div>
                     <div className="col-span-3">Address: {prescriptionDetails?.address}</div>
                 </div>

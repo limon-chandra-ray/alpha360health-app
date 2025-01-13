@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import PrescriptionLogo from "../../../assets/prescription.png"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Complaint from "./Complaint";
 import PatientObservation from "./Observation";
 import PatientDiagnosis from "./Diagnosis";
@@ -12,9 +12,11 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { BaseUrl } from "../../../Constant/ApiDoamin";
 import toast from "react-hot-toast";
+import { format } from "date-fns";
 const CreatePrescription=()=>{
     const navigate = useNavigate()
     const {Id} = useParams()
+    const [patientinfo,setPatientInfo] = useState({})
     const [medicineList,setMedicineList] = useState([])
     const [complaints,setComplaint] = useState([])
     const [observations,setObservation] = useState([])
@@ -44,6 +46,17 @@ const CreatePrescription=()=>{
         }
 
     }
+    useEffect(()=>{
+        const fetchPrescription=async()=>{
+            const response =await fetch(
+                `${BaseUrl}appoinments/${Id}`
+            )
+            const responseData = await response.json()
+            setPatientInfo(responseData[0])
+        }
+        fetchPrescription()
+    },[Id])
+    console.log(patientinfo)
     return <>
         <div>
             <div>
@@ -69,16 +82,16 @@ const CreatePrescription=()=>{
             <div className="w-full h-[5px] bg-cyan-700 rounded-3xl my-5"></div>
             <div className="grid grid-cols-1">
                 <div className="grid grid-cols-12 border border-black p-[2px]">
-                    <div className="col-span-5 border-r border-black">Name: Md. Iftalhar Hassan Khan</div>
-                    <div className="col-span-2 border-r border-black">Gender: Female</div>
-                    <div className="col-span-2 border-r border-black">Age: 70.6 years</div>
-                    <div className="col-span-3">Date: 28/09/2026</div>
+                    <div className="col-span-5 border-r border-black">Name: {patientinfo?.patient_name}</div>
+                    <div className="col-span-2 border-r border-black">Gender: {patientinfo?.gender}</div>
+                    <div className="col-span-2 border-r border-black">Age: {patientinfo?.age} years</div>
+                    <div className="col-span-3">Date: {format(patientinfo?.created_at? patientinfo?.created_at:null,"dd/MM/yyyy")}</div>
                 </div>
                 <div className="grid grid-cols-12 border-t-0 border-l border-b border-r border-black p-[2px]">
-                    <div className="col-span-3 border-r border-black">Patient ID:10202020</div>
-                    <div className="col-span-3 border-r border-black">Prescription ID:30303030</div>
-                    <div className="col-span-3 border-r border-black">Phone: 01797859483</div>
-                    <div className="col-span-3">Address: Mirpur-12, Dhaka</div>
+                    <div className="col-span-3 border-r border-black">Patient ID:{patientinfo?.patientId}</div>
+                    <div className="col-span-3 border-r border-black">Prescription ID:{patientinfo?.prescription_id}</div>
+                    <div className="col-span-3 border-r border-black">Phone: {patientinfo?.phone_number}</div>
+                    <div className="col-span-3">Address: {patientinfo?.address}</div>
                 </div>
             </div>
             <div className="grid grid-cols-12">
