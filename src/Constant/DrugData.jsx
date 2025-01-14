@@ -34,6 +34,7 @@ export const RouteAdministration=[
 ]
 export const DoseUnit =[
     "ml",
+    "mg",
     "gm",
     "ng",
     "mcg",
