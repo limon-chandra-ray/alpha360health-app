@@ -71,7 +71,7 @@ const Prescription=()=>{
             <div className="grid grid-cols-12 py-2">
                 <div className="col-span-4 bg-blue-300 text-black">
                     <div className="border border-blue-700">
-                        <div>Chief complaint:</div>
+                        <div>Major complains:</div>
                         <InformationList listValue={prescriptionDetails?.complaint}/>
                     </div>
                     <div className="border border-blue-700">

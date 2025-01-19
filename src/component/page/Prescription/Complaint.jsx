@@ -16,7 +16,7 @@ const Complaint=({setComplaint,complaints})=>{
         }
     }
     return<div className="">
-        <div>Chief complaint:</div>
+        <div>Major complains:</div>
         <div>
             <div className="flex">
                 <input type="text" value={complaintText} onChange={handleChange} className="grow w-full p-0" placeholder="complaint"/>
