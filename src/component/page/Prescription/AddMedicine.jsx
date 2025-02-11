@@ -100,7 +100,7 @@ const AddMedicine=({setMedicineList})=>{
                                 <div className="flex flex-col border border-black pb-2 absolute max-h-[350px] bg-blue-200 top-[66px] left-0 right-0 overflow-y-scroll">
                                     {
                                         searchDragList?.map((durg)=><div key={durg.id}  className="py-2 pl-5 border-b border-blue-600 text-slate-800 cursor-pointer" 
-                                        onClick={()=>handleSelect(`${durg?.brand_name} ( ${durg?.generic_name} )`)}>{`${durg?.brand_name} ( ${durg?.generic_name} )`}</div>)
+                                        onClick={()=>handleSelect(`${durg?.generic_name} ( ${durg?.brand_name} )`)}>{`${durg?.generic_name} ( ${durg?.brand_name} )`}</div>)
                                     }
                                     
                                 
@@ -134,7 +134,7 @@ const AddMedicine=({setMedicineList})=>{
                         </div>
                         <div className="grid grid-cols-12 items-center gap-x-2">
                             <div className="col-span-4 grid grid-cols-1">
-                                <label htmlFor="route">Route</label>
+                                <label htmlFor="route">Route of Administration</label>
                                 <select name="route" value={medicineForm?.route} onChange={handleChange}>
                                     <option selected>select route</option>
                                     {
@@ -144,9 +144,9 @@ const AddMedicine=({setMedicineList})=>{
                                 </select>
                             </div>
                             <div className="col-span-8 grid grid-cols-1">
-                                <label htmlFor="direction">Direction of administration</label>
+                                <label htmlFor="direction">Instruction of administration</label>
                                 <select name="direction" value={medicineForm?.direction} onChange={handleChange}>
-                                    <option selected>select direction</option>
+                                    <option selected>select instruction</option>
                                     {
                                         DirectionAdministration?.map((Mdata,index)=><option key={index} value={Mdata}>{Mdata}</option>)
                                     }
@@ -155,7 +155,7 @@ const AddMedicine=({setMedicineList})=>{
                         </div>
                         <div className="grid grid-cols-3 items-center gap-x-2">
                             <div className="grid grid-cols-1">
-                                <label htmlFor="frequency">Frequency</label>
+                                <label htmlFor="frequency">Frequency of Dose</label>
                                 <select name="frequency" value={medicineForm?.frequency} onChange={handleChange}>
                                     <option selected>select frequency</option>
                                     {
@@ -165,7 +165,7 @@ const AddMedicine=({setMedicineList})=>{
                                 </select>
                             </div>
                             <div className="grid grid-cols-1">
-                                <label htmlFor="duration">Duration</label>
+                                <label htmlFor="duration">Dose Interval</label>
                                 <input type="text" value={medicineForm?.duration} name="duration" onChange={handleChange} placeholder="duration"/>
                             </div>
                             <div className="grid grid-cols-1">
