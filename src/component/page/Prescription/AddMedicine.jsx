@@ -92,7 +92,7 @@ const AddMedicine=({setMedicineList})=>{
                     <div className="grid grid-cols-1 gap-y-2">
                         <div className="grid grid-cols-1 gap-y-2 relative">
                             <div className="grid grid-cols-1">
-                                <label htmlFor="drag_name">Brand Name or Generic Name</label>
+                                <label htmlFor="drag_name">Generic Name or Brand Name</label>
                                 <input onChange={handleSearch} value={selectText} type="text" name="drag_name" placeholder="Drag name or generic name"/>
                             </div>
                             {
