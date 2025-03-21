@@ -13,6 +13,7 @@ import axios from "axios";
 import { BaseUrl } from "../../../Constant/ApiDoamin";
 import toast from "react-hot-toast";
 import { format } from "date-fns";
+import { AlphaUser } from "../../../Constant/AlphaUser";
 const CreatePrescription=()=>{
     const navigate = useNavigate()
     const {Id} = useParams()
@@ -22,6 +23,7 @@ const CreatePrescription=()=>{
     const [observations,setObservation] = useState([])
     const [diagnosis,setDiagnosis] = useState([])
     const [advices,setAdvice] = useState([])
+    const [doctorDetails,setDoctorDetails] = useState({})
     const [followupinstructions,setFollowUpInstruction] = useState([])
     const handleRemoveM=(index)=>{
         setMedicineList((prev)=>prev.filter((pprev,mindex)=> mindex !== index))
@@ -53,6 +55,8 @@ const CreatePrescription=()=>{
             )
             const responseData = await response.json()
             setPatientInfo(responseData[0])
+            const doctor_Details = AlphaUser.filter(user=> user?.userName == responseData[0]?.doctor_name)
+            setDoctorDetails(doctor_Details[0]);
         }
         fetchPrescription()
     },[Id])
@@ -66,10 +70,10 @@ const CreatePrescription=()=>{
                     </div>
                     <div className="grid grid-cols-1 text-end">
                         <span className="text-[25px] font-bold text-cyan-600">Dr. Md. Shahin Reza</span>
-                        <span className="text-[16px] font-semibold">MBBS (DU), DCH (Dhaka Shishu Hospital)</span>
-                        <span className="text-[16px]">Registrar, Dept of Paediatrics & NICU.</span>
-                        <span className="text-[16px]">Enam Medical College & Hospital.</span>
-                        <span className="text-[16px] text-cyan-500">General Physician & Public Health Specialist.</span>
+                        <span className="text-[16px] font-semibold">{doctorDetails?.degree}</span>
+                        <span className="text-[16px]">{doctorDetails?.dept}</span>
+                        <span className="text-[16px]">{doctorDetails?.hospital}</span>
+                        <span className="text-[16px] text-cyan-500">{doctorDetails?.special}</span>
                     </div>
                 </div>
                 <div className="flex gap-x-3 text-cyan-500 pl-5 text-[16px]">

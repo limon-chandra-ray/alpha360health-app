@@ -1,12 +1,16 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BaseUrl } from "../../../Constant/ApiDoamin";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import toast from "react-hot-toast";
+import { AlphaUser } from "../../../Constant/AlphaUser";
+import { AuthContext } from "../../../context/AuthProvider";
 
 const AppointmentCreate=({SetPatient})=>{
     const [loader,setLoader] = useState(false)
     const [patientId,setPatientId] = useState(0)
+    const {getAuthUser} = useContext(AuthContext)
+    console.log(getAuthUser()?.email)
     const [patientForm,SetPatientForm] = useState({
         "patient_name":"",
         "phone_number":"",
@@ -18,7 +22,8 @@ const AppointmentCreate=({SetPatient})=>{
         "service_charge":"",
         "appoinment_status":"",
         "patinet_type":"",
-        "address":""
+        "address":"",
+        "doctor_name":""
     })
     const handleChange=(e)=>{
         const {name,value} = e.target;
@@ -37,7 +42,7 @@ const AppointmentCreate=({SetPatient})=>{
                 "patient_id":patientId,
                 "gender":patientForm?.gender ?? "",
                 "age":patientForm?.age ?? "",
-                "address":patientForm?.address ?? ""
+                "address":patientForm?.address ?? "",
             })
     
             await axios.post(`${BaseUrl}appoinments`,{
@@ -47,6 +52,8 @@ const AppointmentCreate=({SetPatient})=>{
                 "service_charge":patientForm?.service_charge,
                 "appoinment_status":"Pending",
                 "patient_type":"Primary",
+                "doctor_name":patientForm?.doctor_name,
+                "agent_email": getAuthUser()?.email
             })
             SetPatientForm((prev)=>({
                 ...prev,
@@ -90,6 +97,16 @@ const AppointmentCreate=({SetPatient})=>{
         <div className="text-center text-[25px] font-bold text-black">Appointment Booking</div>
         <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-y-2">
+            <div className="grid grid-cols-12 items-center">
+                <label htmlFor="doctor_name" className="col-span-4">Doctor Name:</label>
+                <select name="doctor_name" value={patientForm?.doctor_name} required onChange={handleChange} className="col-span-8">
+                    <option> select Doctor</option>
+                    {
+                        AlphaUser?.map((doctor,index)=> doctor?.userRole == "Doctor" ? <option key={index} value={doctor?.userName}>{doctor?.userName}</option>:null)
+                    }
+  
+                </select>
+            </div>
             <div className="grid grid-cols-12 items-center">
                 <label htmlFor="phone_number" className="col-span-4">Phone Number:</label>
                 <input type="text" value={patientForm?.phone_number} required onChange={handleChange} className="col-span-8" name="phone_number"/>

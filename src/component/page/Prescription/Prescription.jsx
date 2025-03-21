@@ -7,10 +7,12 @@ import { BaseUrl } from "../../../Constant/ApiDoamin"
 import { format } from "date-fns"
 import InformationList from "./InformationList"
 import { PrinterIcon } from "@heroicons/react/24/outline";
+import { AlphaUser } from "../../../Constant/AlphaUser";
 
 const Prescription=()=>{
     const {Id} = useParams()
     const datetime = new Date().getTime()
+    const [doctorDetails,setDoctorDetails] = useState({});
     const [prescriptionDetails,setPrescriptionDetails] = useState({})
     const contentRef = useRef(null);
     const reactToPrintFn = useReactToPrint({ 
@@ -25,6 +27,8 @@ const Prescription=()=>{
             )
             const responseData = await response.json()
             setPrescriptionDetails(responseData[0])
+            const doctor_Details = AlphaUser.filter(user=> user?.userName == responseData[0]?.doctor_name)
+            setDoctorDetails(doctor_Details[0])
         }
         fetchPrescription()
     },[])
@@ -40,10 +44,10 @@ const Prescription=()=>{
                     </div>
                     <div className="grid grid-cols-1 text-end pr-3">
                         <span className="text-[25px] font-bold text-cyan-600">Dr. Md. Shahin Reza</span>
-                        <span className="text-[16px] font-semibold">MBBS (DU), DCH (Dhaka Shishu Hospital)</span>
-                        <span className="text-[16px]">Registrar, Dept of Paediatrics & NICU.</span>
-                        <span className="text-[16px]">Enam Medical College & Hospital.</span>
-                        <span className="text-[16px] text-cyan-500">General Physician & Public Health Specialist.</span>
+                        <span className="text-[16px] font-semibold">{doctorDetails?.degree}</span>
+                        <span className="text-[16px]">{doctorDetails?.dept}</span>
+                        <span className="text-[16px]">{doctorDetails?.hospital}</span>
+                        <span className="text-[16px] text-cyan-500">{doctorDetails?.special}</span>
                     </div>
                 </div>
                 <div className="flex gap-x-3 text-cyan-500 pl-5 text-[16px]">

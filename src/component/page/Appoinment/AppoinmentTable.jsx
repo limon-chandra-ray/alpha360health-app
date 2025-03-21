@@ -1,11 +1,25 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppoinmentDelete from "./AppoinmentDelete";
 import AppoinmentEdit from "./AppoinmentEdit";
 import { useLoaderData } from "react-router-dom";
+import { BaseUrl } from "../../../Constant/ApiDoamin";
+import { AuthContext } from "../../../context/AuthProvider";
 
 const AppoinmentTable=()=>{
-    const [appoinments,setAppoinment] = useState(useLoaderData());
-    console.log(appoinments)
+    const [appoinments,setAppoinment] = useState([]);
+    const {getAuthUser} = useContext(AuthContext);
+
+    useEffect(()=>{
+        const fetchConsultation=async()=>{
+            const response = await fetch(
+                `${BaseUrl}appoinments?agent_email=${getAuthUser()?.email}`
+            )
+            const responseData = await response.json() 
+            console.log(responseData)
+            setAppoinment(responseData)
+        }
+        fetchConsultation()
+    },[])
     return<>
     <div className="overflow-x-auto py-4">
         <table className="table">

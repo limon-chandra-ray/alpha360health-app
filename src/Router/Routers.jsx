@@ -8,6 +8,8 @@ import AllPrescription from "../component/page/All-Prescription/All-Prescription
 import CreatePrescription from "../component/page/Prescription/CreatePrescription";
 import { BaseUrl } from "../Constant/ApiDoamin";
 import Prescription from "../component/page/Prescription/Prescription";
+import SignUp from "../component/Authentication/Signup";
+import Login from "../component/Authentication/Login";
 
 const router = createBrowserRouter(
     [
@@ -22,7 +24,7 @@ const router = createBrowserRouter(
                 {
                     path:"/appoinment",
                     element:<Appointment/>,
-                    loader:()=>fetch(`${BaseUrl}appoinments`)
+                    // loader:()=>fetch(`${BaseUrl}appoinments`)
                 },
                 {
                     path:"/appoinment-create",
@@ -45,6 +47,13 @@ const router = createBrowserRouter(
                     element:<Prescription/>
                 }
             ]
+        },
+        {
+            path:"/sign-up",
+            element:<SignUp/>
+        },{
+            path:"/login",
+            element:<Login/>
         }
     ]
 )

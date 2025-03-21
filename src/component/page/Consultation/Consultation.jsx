@@ -1,22 +1,28 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SearchBar from "../../SearchBar/SearchBar";
 import ConsultationTable from "./Consultation-Table";
 import axios from "axios";
 import { BaseUrl } from "../../../Constant/ApiDoamin";
+import { AuthContext } from "../../../context/AuthProvider";
+import { AlphaUser } from "../../../Constant/AlphaUser";
 
 const Consultent=()=>{
     const [consultationList,setConsultationList] = useState([])
     const [appoinmentStatus,SetAppoinmentStatus] = useState('Pending')
+    const {getAuthUser} = useContext(AuthContext);
     const handleAppoinmentStatus=(status)=>{
         SetAppoinmentStatus(status)
     }
+    const doctor = AlphaUser.filter(user => user.email === getAuthUser()?.email && user?.userRole === "Doctor");
+
     useEffect(()=>{
         const fetchConsultation=async()=>{
             const response =await fetch(
-                `${BaseUrl}appoinments?appoinment_status=${appoinmentStatus}`
+                `${BaseUrl}appoinments?appoinment_status=${appoinmentStatus}&doctor_name=${doctor[0]?.userName}`
             )
             const responseData = await response.json() 
             setConsultationList(responseData)
+            console.log(responseData)
         }
         fetchConsultation()
     },[appoinmentStatus])
