@@ -4,6 +4,7 @@ import {GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthState
 import app from '../firebase/firebase.config';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
@@ -32,20 +33,24 @@ const AuthProvider = ({children}) => {
     const getAuthUser=()=>{
         const email = localStorage.getItem('email');
         const userRole = localStorage.getItem("user_role");
+        const accountStatus = localStorage.getItem("astatus");
         return {
             "email":email,
-            "userRole":userRole
+            "userRole":userRole,
+            "status": accountStatus ? accountStatus : 0
         }
     }
     const setAuthUser=(email,userRole)=>{
         localStorage.setItem('email',email);
         localStorage.setItem('user_role',userRole);
+        localStorage.setItem("astatus",1)
         return true;
     }
-    const logOut= ()=>{
+    const logOut= (newPath)=>{
         localStorage.removeItem("email");
-        localStorage.removeItem("user_role")
-        return true;
+        localStorage.removeItem("user_role");
+        const navigate = useNavigate();
+        navigate(newPath,{replace:true})
      }
     useEffect( () =>{
         const unsubscribe = onAuthStateChanged(auth, currentUser =>{

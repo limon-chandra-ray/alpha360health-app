@@ -10,6 +10,7 @@ import { BaseUrl } from "../Constant/ApiDoamin";
 import Prescription from "../component/page/Prescription/Prescription";
 import SignUp from "../component/Authentication/Signup";
 import Login from "../component/Authentication/Login";
+import ProtectedRouter from "./ProtectedRouter";
 
 const router = createBrowserRouter(
     [
@@ -19,32 +20,34 @@ const router = createBrowserRouter(
             children:[
                 {
                     path:"/",
-                    element: <Home/>
+                    element: <ProtectedRouter children={Home}/>
+                       
+                            
                 },
                 {
                     path:"/appoinment",
-                    element:<Appointment/>,
+                    element:<ProtectedRouter children={Appointment}/>,
                     // loader:()=>fetch(`${BaseUrl}appoinments`)
                 },
                 {
                     path:"/appoinment-create",
-                    element:<AppointmentCreate/>
+                    element:<ProtectedRouter children ={AppointmentCreate}/>
                 },
                 {
                     path:"/consultation",
-                    element:<Consultent/>
+                    element:<ProtectedRouter children={Consultent}/>
                 },
                 {
                     path:"/all-prescription",
-                    element:<AllPrescription/>
+                    element:<ProtectedRouter children={AllPrescription}/>
                 },
                 {
                     path:"/appoinment/:Id/prescription-create",
-                    element:<CreatePrescription/>
+                    element:<ProtectedRouter children={CreatePrescription}/>
                 },
                 {
                     path:"/all-prescription/:Id/view",
-                    element:<Prescription/>
+                    element:<ProtectedRouter children={Prescription}/>
                 }
             ]
         },

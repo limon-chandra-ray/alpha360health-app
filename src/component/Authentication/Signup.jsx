@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const SignUp=()=>{
     const [isLoading, setIsLoading] = useState(false);
@@ -10,6 +11,7 @@ const SignUp=()=>{
     const from = location.state?.from?.pathname || '/login';
     const handleSignup = async (event) => {
         event.preventDefault();
+        setIsLoading(true)
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
@@ -19,13 +21,14 @@ const SignUp=()=>{
           
           if (userCredential.user) {
             navigate(from, { replace: true });
-
+            toast.success("Account created")
           }
         } catch (error) {
-          console.log(error.message);
+          toast.error(error.message);
         } finally {
           console.log(false);
         }
+        setIsLoading(false)
     };
 
 

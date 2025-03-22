@@ -22,7 +22,7 @@ const AllPrescription=()=>{
     return<>
     <div>
         <div className="flex justify-between">
-            <div>Consultation</div>
+            <div>All Prescription</div>
             <SearchBar/>
         </div>
        

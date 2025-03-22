@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Login=()=>{
     const [isLoading, setIsLoading] = useState(false);
@@ -11,6 +12,7 @@ const Login=()=>{
     const from = location.state?.from?.pathname || '/';
     const handleLogin = (event) => {
         event.preventDefault();
+        setIsLoading(true)
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
@@ -19,10 +21,12 @@ const Login=()=>{
           .then((result) => {
             navigate(from, { replace: true });
             setAuthUser(email,"Doctor")
+            toast.success("Login success")
           })
           .catch((error) => {
             setErrorMessage("Invalid email or password");
           });
+        setIsLoading(false)
       };
 
 

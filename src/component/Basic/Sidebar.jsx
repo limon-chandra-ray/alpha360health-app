@@ -3,6 +3,7 @@ import { use, useContext } from "react"
 import Logo from "../../assets/logo.jpeg"
 import { useLocation } from "react-router-dom"
 import { AuthContext } from "../../context/AuthProvider"
+import Logout from "./Logout"
 
 const SideBar=()=> {
   const location = useLocation()
@@ -20,7 +21,7 @@ const SideBar=()=> {
             <a href="/all-prescription" className={`py-2 pl-5 font-[16px]  ${isActive('/all-prescription') ? "bg-blue-800":"bg-blue-600"} text-slate-100 hover:bg-blue-900 rounded-r-md`}>All Prescription</a>
             {
               getAuthUser()?.userRole !== "" ?
-              <button onClick={()=>logOut()} className={`text-left py-2 pl-5 font-[16px] bg-blue-600 text-slate-100 hover:bg-blue-900 rounded-r-md`}>Log-Out</button>:
+              <Logout/>:
               null
             }
         </div>
