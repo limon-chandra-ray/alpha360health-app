@@ -18,7 +18,7 @@ const Consultent=()=>{
     useEffect(()=>{
         const fetchConsultation=async()=>{
             const response =await fetch(
-                `${BaseUrl}appoinments?appoinment_status=${appoinmentStatus}&agent_email=${getAuthUser().userName}`
+                `${BaseUrl}appoinments?appoinment_status=${appoinmentStatus}&agent_email=${getAuthUser().email}`
             )
             const responseData = await response.json() 
             setConsultationList(responseData)
