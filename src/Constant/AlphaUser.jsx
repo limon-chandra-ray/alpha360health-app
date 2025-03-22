@@ -10,7 +10,7 @@ export const AlphaUser =[
         "userRole":"Doctor"
     },
     {
-        "email":"limonroy.19cse013@gmail.com",
+        "email":"g.clan777@gmail.com",
         "userName":"Dr. Md Shoaib",
         "userRole":"Agent"
     },
@@ -22,6 +22,15 @@ export const AlphaUser =[
     {
         "email":"limonroy.19cse013@gmail.com",
         "userName":"Dr. Masud Ali",
+        "userRole":"Doctor",
+        "degree":"MBBS (DU), DCH (Dhaka Shishu Hospital)",
+        "dept":"Registrar, Dept of Paediatrics & NICU.",
+        "hospital":"Enam Medical College & Hospital.",
+        "special":"General Physician & Public Health Specialist."
+    },
+    {
+        "email":"telehealth777@gmail.com",
+        "userName":"Dr. Shoaib Ahmed",
         "userRole":"Doctor",
         "degree":"MBBS (DU), DCH (Dhaka Shishu Hospital)",
         "dept":"Registrar, Dept of Paediatrics & NICU.",

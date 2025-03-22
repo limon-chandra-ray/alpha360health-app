@@ -68,7 +68,7 @@ const AppointmentCreate=({SetPatient})=>{
                 "patient_id": parseInt(patientId)+1
             }))
             setPatientId(parseInt(patientId)+1)
-            toast.success("Create success")
+            toast.success("Booking success")
         }catch (error) {
             toast.error(error.message)
             setErrorMessage(error.message);
@@ -133,7 +133,7 @@ const AppointmentCreate=({SetPatient})=>{
                 <input type="text" value={patientForm?.age} required onChange={handleChange} className="col-span-8" name="age"/>
             </div>
             <div className="grid grid-cols-12 items-center">
-                <label htmlFor="chief_complaint" className="col-span-4">Chiefs Complaints:</label>
+                <label htmlFor="chief_complaint" className="col-span-4">Chiefs Complaints</label>
                 <input type="text" value={patientForm?.chief_complaint} onChange={handleChange} className="col-span-8" name="chief_complaint"/>
             </div>
             <div className="grid grid-cols-12 items-center">
