@@ -1,5 +1,5 @@
 
-const ConsultationTable=({consultationList})=>{
+const ConsultationTable=({consultationList,doctorName})=>{
     return<>
     <div className="overflow-x-auto py-4">
         <table className="table">
@@ -25,7 +25,12 @@ const ConsultationTable=({consultationList})=>{
                                 <td>{appoinment?.patient_type}</td>
                                 <td>{appoinment?.chief_complaint}</td>
                                 <td className="flex items-center gap-x-3">
-                                    <a href={`/appoinment/${appoinment?._id}/prescription-create`} className="py-1 px-5 rounded-md bg-orange-500 text-white">Rx</a>
+                                    {
+                                        appoinment?.doctor_name === doctorName ?
+                                        <a href={`/appoinment/${appoinment?._id}/prescription-create`} className="py-1 px-5 rounded-md bg-orange-500 text-white">Rx</a>:
+                                        null
+                                    }
+                                    
                                 </td>
                             </tr>
                         )
