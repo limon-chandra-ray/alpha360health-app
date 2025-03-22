@@ -41,7 +41,7 @@ const Consultent=()=>{
                     >Completed</button>
             </div>
         </div>
-        <ConsultationTable consultationList={consultationList} doctorName={doctor[0].userName}/>
+        <ConsultationTable consultationList={consultationList} doctorName={doctor[0]?.userName !== null ? doctor[0]?.userName : "None"}/>
     </div>
     </>
 }
