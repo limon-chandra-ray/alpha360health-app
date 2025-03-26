@@ -43,7 +43,7 @@ const Prescription=()=>{
                         <img className="w-[350px] h-[120px] md:w-[300px] md:h-[80px] lg:w-[320px] lg:h-[100px]" src={PrescriptionLogo} alt="" />
                     </div>
                     <div className="grid grid-cols-1 text-end pr-3">
-                        <span className="text-[25px] font-bold text-cyan-600">Dr. Md. Shahin Reza</span>
+                        <span className="text-[25px] font-bold text-cyan-600">{doctorDetails?.userName}</span>
                         <span className="text-[16px] font-semibold">{doctorDetails?.degree}</span>
                         <span className="text-[16px]">{doctorDetails?.dept}</span>
                         <span className="text-[16px]">{doctorDetails?.hospital}</span>

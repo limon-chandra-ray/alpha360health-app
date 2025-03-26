@@ -15,7 +15,6 @@ const AppoinmentTable=()=>{
                 `${BaseUrl}appoinments?agent_email=${getAuthUser()?.email}`
             )
             const responseData = await response.json() 
-            console.log(responseData)
             setAppoinment(responseData)
         }
         fetchConsultation()
