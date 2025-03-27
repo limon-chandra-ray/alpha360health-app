@@ -60,7 +60,7 @@ const CreatePrescription=()=>{
         }
         fetchPrescription()
     },[Id])
-    console.log(patientinfo)
+
     return <>
         <div>
             <div>

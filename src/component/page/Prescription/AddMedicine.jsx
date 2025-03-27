@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { DirectionAdministration, DosageForm, DoseFrequency, DosefrequencyDurationUnit, DoseUnit, RouteAdministration } from "../../../Constant/DrugData";
 import { BaseUrl } from "../../../Constant/ApiDoamin";
+import toast from "react-hot-toast";
 
 const AddMedicine=({setMedicineList})=>{
     const [medicineForm,setMedicineForm] = useState({
@@ -47,6 +48,7 @@ const AddMedicine=({setMedicineList})=>{
     const handleSubmit=(e)=>{
         e.preventDefault()
         setMedicineList((prev)=>[...prev,medicineForm])
+        toast.success(`${medicineForm.drag_name} is Added`)
         setMedicineForm((prev)=>({
             ...prev,
             "drag_name":"",
@@ -169,7 +171,7 @@ const AddMedicine=({setMedicineList})=>{
                                 <input type="text" value={medicineForm?.duration} name="duration" onChange={handleChange} placeholder="duration"/>
                             </div>
                             <div className="grid grid-cols-1">
-                                <label htmlFor="duration_unit">Duration Unit</label>
+                                <label htmlFor="duration_unit">Duration of dose interval</label>
                                 <select name="duration_unit" value={medicineForm?.duration_unit} onChange={handleChange}>
                                     <option selected>select duration unit</option>
                                     {
